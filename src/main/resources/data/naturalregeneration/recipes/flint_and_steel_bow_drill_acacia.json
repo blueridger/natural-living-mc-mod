@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:bow"
+        },
+        {
+            "item": "minecraft:stick"
+        },
+        {
+            "item": "minecraft:acacia_planks"
+        }
+    ],
+    "result": {
+        "item": "minecraft:flint_and_steel",
+        "count": 1
+    },
+    "group": "alt_flint_and_steel"
+}
