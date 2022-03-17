@@ -23,16 +23,18 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class Foraging {
 	public Foraging() {
-		dropsByTag.put(BlockTags.LEAVES, new Drops(40).add(Items.STICK, 1, 1).add(Items.FEATHER, 1, 1));
+		dropsByTag.put(BlockTags.LEAVES, new Drops(25).add(Items.STICK, 1, 2).add(Items.FEATHER, 1, 2));
 
-		dropsByBlock.put(Blocks.GRAVEL, new Drops(80).add(Items.FLINT, 1, 1));
+		dropsByBlock.put(Blocks.GRAVEL, new Drops(50).add(Items.FLINT, 1, 1));
 		dropsByBlock.put(Blocks.TALL_GRASS,
 				new Drops(30).add(Items.STRING, 1, 3).add(Items.WHEAT_SEEDS, 1, 3).add(Items.WHEAT, 1, 3));
-		dropsByBlock.put(Blocks.GRASS, new Drops(60).add(Items.BEETROOT_SEEDS, 1, 3).add(Items.BEETROOT, 1, 3).add(Items.POTATO, 1, 3));
-		dropsByBlock.put(Blocks.VINE, new Drops(40).add(Items.STRING, 1, 1));
-		dropsByBlock.put(Blocks.DEAD_BUSH, new Drops(10).add(Items.STICK, 1, 1));
-		dropsByBlock.put(Blocks.SAND, new Drops(80).add(Items.BONE, 1, 1));
-		dropsByBlock.put(Blocks.CACTUS, new Drops(60).add(Items.APPLE, 1, 1));
+		dropsByBlock.put(Blocks.GRASS,
+				new Drops(50).add(Items.BEETROOT_SEEDS, 1, 3).add(Items.BEETROOT, 1, 3).add(Items.POTATO, 1, 3));
+		dropsByBlock.put(Blocks.VINE, new Drops(30).add(Items.STRING, 1, 1));
+		dropsByBlock.put(Blocks.DEAD_BUSH, new Drops(6).add(Items.STICK, 1, 1).add(Items.ACACIA_PLANKS, 1, 8));
+		dropsByBlock.put(Blocks.SAND, new Drops(50).add(Items.BONE, 1, 1));
+		dropsByBlock.put(Blocks.CACTUS, new Drops(15).add(Items.APPLE, 1, 1));
+		dropsByBlock.put(Blocks.OAK_LEAVES, new Drops(35).add(Items.APPLE, 1, 1));
 	}
 
 	private static final Logger LOGGER = LogUtils.getLogger();
@@ -54,27 +56,25 @@ public class Foraging {
 					.anyMatch(Predicate.isEqual(entry.getKey()))) {
 				LOGGER.debug("Found " + entry.getKey());
 				ArrayList<ItemStack> result = entry.getValue()
-						.rollDrops(event.getPos().getX() + event.getPos().getY() + event.getPos().getZ());
+						.rollDrops(Math.abs(event.getPos().getX() + event.getPos().getY() + event.getPos().getZ()));
 				if (result == null)
 					continue;
 				for (ItemStack itemStack : result) {
 					event.getPlayer().drop(itemStack, true);
 				}
 			}
+		}
+		Drops blockDrops = dropsByBlock.get(event.getEntity().getLevel().getBlockState(event.getPos()).getBlock());
+		if (blockDrops == null)
+			return;
+		ArrayList<ItemStack> result = blockDrops
+				.rollDrops(Math.abs(event.getPos().getX() + event.getPos().getY() + event.getPos().getZ()));
+		if (result == null)
+			return;
+		for (ItemStack itemStack : result) {
+			event.getPlayer().drop(itemStack, true);
 		}
 
-		for (Map.Entry<Block, Drops> entry : dropsByBlock.entrySet()) {
-			if (event.getEntity().getLevel().getBlockState(event.getPos()).getBlock() == entry.getKey()) {
-				LOGGER.debug("Found " + entry.getKey());
-				ArrayList<ItemStack> result = entry.getValue()
-						.rollDrops(event.getPos().getX() + event.getPos().getY() + event.getPos().getZ());
-				if (result == null)
-					continue;
-				for (ItemStack itemStack : result) {
-					event.getPlayer().drop(itemStack, true);
-				}
-			}
-		}
 	}
 
 	protected class Drops {

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:campfire"
+    },
+    "title": "Ancestral Skills",
+    "description": "Your hands hold wisdom.",
+    "hidden": true
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:stick"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "naturalregeneration:arrow_from_bone"
+    ]
+  }
+}

@@ -8,6 +8,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Cod;
+import net.minecraft.world.entity.animal.Salmon;
+import net.minecraft.world.entity.animal.TropicalFish;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,7 +32,7 @@ public class SpawnRules {
 			if (Animal.class.isInstance(ent) && !Spider.class.isInstance(ent)) {
 				event.setResult(Result.DENY);
 				LOGGER.debug("Denied natural spawn of " + ent.getType().toShortString());
-			} else if (AbstractSchoolingFish.class.isInstance(ent)) {
+			} else if (Salmon.class.isInstance(ent) && Cod.class.isInstance(ent)) {
 				if (Utils.sameWithin(ent, NaturalBreeding.DEFAULT_NEW_SCHOOL_SEARCH_RADIUS) > NaturalBreeding.DEFAULT_NEW_SCHOOL_SEARCH_COUNT) {
 					event.setResult(Result.DENY);
 					return;

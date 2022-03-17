@@ -90,7 +90,7 @@ public class NaturalBreeding {
 	@SubscribeEvent
 	public void naturalLoveFish(LivingUpdateEvent event) {
 		LivingEntity ent = event.getEntityLiving();
-		if (!AbstractSchoolingFish.class.isInstance(ent) || ent.getLevel().isClientSide) {
+		if (!(Salmon.class.isInstance(ent) || Cod.class.isInstance(ent)) || ent.getLevel().isClientSide) {
 			return;
 		}
 		AbstractSchoolingFish fish = (AbstractSchoolingFish) ent;
@@ -115,10 +115,8 @@ public class NaturalBreeding {
 				newFish = new Salmon(EntityType.SALMON, fish.getLevel());
 			if (Cod.class.isInstance(fish))
 				newFish = new Cod(EntityType.COD, fish.getLevel());
-			if (TropicalFish.class.isInstance(fish))
-				newFish = new TropicalFish(EntityType.TROPICAL_FISH, fish.getLevel());
 			if (newFish == null) {
-				LOGGER.debug("Unexpected fish type: " + fish.getType());
+				LOGGER.debug("Unsupported fish type: " + fish.getType());
 				return;
 			}
 			newFish.setPos(fish.position());
