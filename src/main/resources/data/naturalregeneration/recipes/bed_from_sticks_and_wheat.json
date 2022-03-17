@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "///",
+        "/ /"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:wheat"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "minecraft:brown_bed",
+        "count": 1
+    }
+}

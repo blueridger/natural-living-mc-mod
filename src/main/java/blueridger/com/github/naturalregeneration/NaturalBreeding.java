@@ -22,7 +22,7 @@ public class NaturalBreeding {
 	private static final Logger LOGGER = LogUtils.getLogger();
 	protected static final double DEFAULT_SEARCH_RADIUS = 100;
 	protected static final int DEFAULT_MAX_HERD_SIZE = 5;
-	protected static final int DEFAULT_LOVE_INTERVAL_SECONDS = 500;
+	protected static final int DEFAULT_LOVE_INTERVAL_SECONDS = 300;
 	protected static final int DEFAULT_NEW_SCHOOL_SEARCH_RADIUS = 400;
 	protected static final int DEFAULT_NEW_SCHOOL_SEARCH_COUNT = 5;
 	protected static final int DEFAULT_SCHOOL_FORK_CHANCE = 30;
@@ -35,13 +35,15 @@ public class NaturalBreeding {
 		LOVE_INTERVAL_SECONDS.put("rabbit", 100);
 
 		MAX_HERD_SIZE.put("turtle", 4);
-		SEARCH_RADIUS.put("turtle", 300.0);
+		SEARCH_RADIUS.put("turtle", 200.0);
 
 		MAX_HERD_SIZE.put("cow", 10);
 		SEARCH_RADIUS.put("cow", 200.0);
 
 		MAX_HERD_SIZE.put("sheep", 10);
 		SEARCH_RADIUS.put("sheep", 200.0);
+
+		MAX_HERD_SIZE.put("pig", 8);
 
 		SEARCH_RADIUS.put("bee", 200.0);
 

@@ -51,11 +51,12 @@ public class ModItems {
 
 	private static final Random random = new Random();
 
-	private static void addDrop(LivingDropsEvent event, ItemStack itemStack) {
+	private static void addDrop(LivingDropsEvent event, ItemStack itemStack, int chance) {
+		if (!Utils.oneIn(chance))
+			return;
 		Entity ent = event.getEntityLiving();
 		event.getDrops().add(new ItemEntity(ent.getLevel(), ent.getX(), ent.getY(), ent.getZ(), itemStack));
 	}
-	
 
 	@SubscribeEvent
 	public void additionalAnimalDrops(LivingDropsEvent event) {
@@ -66,41 +67,41 @@ public class ModItems {
 
 		case "polar_bear":
 		case "panda":
-			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), Utils.oneTo(4)));
-			addDrop(event, new ItemStack(Items.BONE, Utils.oneTo(4)));
-			addDrop(event, new ItemStack(Items.LEATHER, Utils.zeroTo(1)));
-			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)));
+			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), Utils.oneTo(4)), 1);
+			addDrop(event, new ItemStack(Items.BONE, Utils.oneTo(4)), 1);
+			addDrop(event, new ItemStack(Items.LEATHER, 1), 2);
+			addDrop(event, new ItemStack(Items.STRING, 1), 2);
 			break;
 
 		case "cow":
-			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), Utils.zeroTo(1)));
-			addDrop(event, new ItemStack(Items.BONE, Utils.oneTo(2)));
-			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)));
+			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), 1), 2);
+			addDrop(event, new ItemStack(Items.BONE, Utils.oneTo(2)), 1);
+			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)), 1);
 			break;
 
 		case "horse":
 		case "donkey":
 		case "mule":
-			addDrop(event, new ItemStack(Items.BONE, Utils.zeroTo(2)));
-			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)));
+			addDrop(event, new ItemStack(Items.BONE, Utils.zeroTo(2)), 1);
+			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)), 1);
 			break;
 
 		case "llama":
-			addDrop(event, new ItemStack(Items.BONE, Utils.zeroTo(2)));
-			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)));
-			addDrop(event, new ItemStack(Items.YELLOW_WOOL, Utils.zeroTo(1)));
+			addDrop(event, new ItemStack(Items.BONE, Utils.zeroTo(2)), 1);
+			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)), 1);
+			addDrop(event, new ItemStack(Items.YELLOW_WOOL, 1), 2);
 			break;
 
 		case "pig":
-			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), Utils.oneTo(3)));
+			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), Utils.oneTo(3)), 1);
 			break;
 
 		case "goat":
-			addDrop(event, new ItemStack(Items.BONE, Utils.zeroTo(1)));
+			addDrop(event, new ItemStack(Items.BONE, Utils.oneTo(2)), 2);
 			break;
 
 		case "turtle":
-			addDrop(event, new ItemStack(Items.BOWL, Utils.zeroTo(1)));
+			addDrop(event, new ItemStack(Items.BOWL, 1), 2);
 			break;
 		}
 	}
