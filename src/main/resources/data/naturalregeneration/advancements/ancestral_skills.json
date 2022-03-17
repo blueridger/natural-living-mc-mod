@@ -4,26 +4,15 @@
       "item": "minecraft:campfire"
     },
     "title": "Ancestral Skills",
-    "description": "Your hands hold wisdom.",
-    "hidden": true
+    "description": "Harvest honorably. (Right click to forage. Leave animals to repopulate naturally.)",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/dirt.png"
   },
   "criteria": {
     "requirement": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:stick"
-            ]
-          }
-        ]
-      }
+      "trigger": "minecraft:tick",
+      "conditions": {}
     }
-  },
-  "rewards": {
-    "recipes": [
-      "naturalregeneration:arrow_from_bone"
-    ]
   }
 }
