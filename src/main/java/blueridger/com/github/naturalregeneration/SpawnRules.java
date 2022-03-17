@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
@@ -25,7 +26,7 @@ public class SpawnRules {
 
 		switch (event.getSpawnReason().name()) {
 		case "NATURAL":
-			if (Animal.class.isInstance(ent)) {
+			if (Animal.class.isInstance(ent) && !Spider.class.isInstance(ent)) {
 				event.setResult(Result.DENY);
 				LOGGER.debug("Denied natural spawn of " + ent.getType().toShortString());
 			} else if (AbstractSchoolingFish.class.isInstance(ent)) {
@@ -44,7 +45,7 @@ public class SpawnRules {
 			break;
 
 		}
-		LOGGER.debug(event.getSpawnReason().name() + " " + ent.getType().toShortString() + " "
-				+ mob.isPersistenceRequired());
+//		LOGGER.debug(event.getSpawnReason().name() + " " + ent.getType().toShortString() + " "
+//				+ mob.isPersistenceRequired());
 	}
 }

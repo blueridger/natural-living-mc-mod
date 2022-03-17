@@ -11,6 +11,14 @@ public class Utils {
 		return random.nextInt(i) == 0;
 	}
 
+	public static int zeroTo(int i) {
+		return random.nextInt(i + 1);
+	}
+
+	public static int oneTo(int i) {
+		return random.nextInt(i) + 1;
+	}
+
 	public static int sameWithin(Entity ent, double searchRadius) {
 		return ent.getLevel()
 				.getEntitiesOfClass(ent.getClass(),

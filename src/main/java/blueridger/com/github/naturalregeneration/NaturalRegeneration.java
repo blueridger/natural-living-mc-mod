@@ -73,6 +73,7 @@ public class NaturalRegeneration {
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new ModItems());
 		MinecraftForge.EVENT_BUS.register(new SpawnRules());
+		MinecraftForge.EVENT_BUS.register(new Foraging());
 
 		ModItems.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
