@@ -1,0 +1,50 @@
+{
+	"display": {
+		"icon": {
+			"item": "minecraft:leather"
+		},
+		"title": "Hide and Seek",
+		"description": "Harvest leather/hides from cows, rabbits, or bears."
+	},
+	"parent": "naturalregeneration:as_stick",
+	"criteria": {
+		"leather": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:leather"
+						]
+					}
+				]
+			}
+		},
+		"hide": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:rabbit_hide"
+						]
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"hide",
+			"leather"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"naturalregeneration:string_from_leather",
+			"naturalregeneration:bucket_from_leather",
+			"naturalregeneration:string_from_rabbit_hide",
+			"naturalregeneration:saddle"
+		]
+	}
+}

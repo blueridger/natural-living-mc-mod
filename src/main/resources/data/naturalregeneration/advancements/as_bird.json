@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:feather"
+    },
+    "title": "Winged Teachers",
+    "description": "Find a feather. (Forage from leaves or harvest from chickens.)"
+  },
+  "parent": "naturalregeneration:as_stick",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:feather"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "naturalregeneration:arrow_from_bone",
+      "naturalregeneration:arrow_from_iron_nugget"
+    ]
+  }
+}

@@ -1,123 +1,37 @@
 package blueridger.com.github.naturalregeneration.Item;
 
 import blueridger.com.github.naturalregeneration.Item.custom.AnimalFat;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.function.Predicate;
-
-import org.slf4j.Logger;
-
-import com.mojang.logging.LogUtils;
-
+import blueridger.com.github.naturalregeneration.Item.custom.ShipItem;
+import blueridger.com.github.naturalregeneration.Item.custom.WeavingMaterial;
 import blueridger.com.github.naturalregeneration.NaturalRegeneration;
-import blueridger.com.github.naturalregeneration.Utils;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.entity.vehicle.Boat;
 
 public class ModItems {
-	private static final Logger LOGGER = LogUtils.getLogger();
 
-	private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
 			NaturalRegeneration.MODID);
 
 	public static final RegistryObject<Item> ANIMAL_FAT = ITEMS.register("animal_fat",
 			() -> new AnimalFat(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
+	public static final RegistryObject<Item> WEAVING_MATERIAL = ITEMS.register("weaving_material",
+			() -> new WeavingMaterial(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
+	public static final RegistryObject<Item> BONE_KNIFE = ITEMS.register("bone_knife",
+			() -> new SwordItem(ModTiers.BONE, 2, -1f, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+
+//	public static final RegistryObject<Item> SHIP = ITEMS.register("ship",
+//			() -> new ShipItem(Boat.Type.ACACIA, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
 	public static void register(IEventBus eventBus) {
 		ITEMS.register(eventBus);
 	}
-
-	private static final Random random = new Random();
-
-	private static void addDrop(LivingDropsEvent event, ItemStack itemStack, int chance) {
-		if (!Utils.oneIn(chance))
-			return;
-		Entity ent = event.getEntityLiving();
-		event.getDrops().add(new ItemEntity(ent.getLevel(), ent.getX(), ent.getY(), ent.getZ(), itemStack));
-	}
-
-	@SubscribeEvent
-	public void additionalAnimalDrops(LivingDropsEvent event) {
-
-		if (event.getEntityLiving().getLevel().isClientSide)
-			return;
-		switch (event.getEntityLiving().getType().toShortString()) {
-
-		case "polar_bear":
-		case "panda":
-			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), Utils.oneTo(4)), 1);
-			addDrop(event, new ItemStack(Items.BONE, Utils.oneTo(4)), 1);
-			addDrop(event, new ItemStack(Items.LEATHER, 1), 2);
-			addDrop(event, new ItemStack(Items.STRING, 1), 2);
-			break;
-
-		case "cow":
-			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), 1), 2);
-			addDrop(event, new ItemStack(Items.BONE, Utils.oneTo(2)), 1);
-			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)), 1);
-			break;
-
-		case "horse":
-		case "donkey":
-		case "mule":
-			addDrop(event, new ItemStack(Items.BONE, Utils.zeroTo(2)), 1);
-			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)), 1);
-			break;
-
-		case "llama":
-			addDrop(event, new ItemStack(Items.BONE, Utils.zeroTo(2)), 1);
-			addDrop(event, new ItemStack(Items.STRING, Utils.zeroTo(2)), 1);
-			addDrop(event, new ItemStack(Items.YELLOW_WOOL, 1), 2);
-			break;
-
-		case "pig":
-			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), Utils.oneTo(3)), 1);
-			break;
-
-		case "goat":
-			addDrop(event, new ItemStack(Items.BONE, Utils.oneTo(2)), 2);
-			break;
-
-		case "turtle":
-			addDrop(event, new ItemStack(Items.BOWL, 1), 2);
-			break;
-		}
-	}
-
-	@SubscribeEvent
-	public void additionalDrops(BlockEvent.BreakEvent event) {
-
-		if (event.getWorld().isClientSide())
-			return;
-//		LOGGER.debug("d " + event.getState().get);
-//		LOGGER.debug(event.getState().getBlockState().getDescriptionId());
-//		switch (event.getState().getBlock().getRegistryType().descriptorString()) {
-//		
-//		case "polar_bear":
-//		case "panda":
-//			addDrop(event, new ItemStack(ModItems.ANIMAL_FAT.get(), oneTo(4)));
-	}
-
 }

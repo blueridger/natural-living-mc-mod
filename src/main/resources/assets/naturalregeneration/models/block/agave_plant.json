@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/cross",
+	"textures": {
+		"cross": "naturalregeneration:block/agave-128"
+	}
+}

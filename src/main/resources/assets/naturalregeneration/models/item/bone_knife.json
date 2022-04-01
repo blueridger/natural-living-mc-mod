@@ -1,0 +1,6 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "naturalregeneration:item/bone_knife2"
+	}
+}

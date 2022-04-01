@@ -1,0 +1,44 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:stick"
+    },
+    "title": "First Tools",
+    "description": "Find a stick. (Forage from leaves or dead bushes.)"
+  },
+  "parent": "naturalregeneration:ancestral_skills",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:stick"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "loot": [
+      "minecraft:blocks/crafting_table"
+    ],
+    "recipes": [
+      "naturalregeneration:wood_slabs_from_sticks_and_clay",
+      "naturalregeneration:bed_from_sticks_and_wheat",
+      "naturalregeneration:bed_from_sticks_and_leather",
+      "naturalregeneration:bed_from_sticks_and_rabbit_hide",
+      "naturalregeneration:thatch_block",
+      "naturalregeneration:flint_and_steal_bow_drill_acacia",
+      "naturalregeneration:flint_and_steal_bow_drill_birch",
+      "naturalregeneration:flint_and_steal_bow_drill_dark_oak",
+      "naturalregeneration:flint_and_steal_bow_drill_jungle",
+      "naturalregeneration:flint_and_steal_bow_drill_oak",
+      "naturalregeneration:flint_and_steal_bow_drill_spruce",
+      "naturalregeneration:furnace_from_clay",
+      "naturalregeneration:door_thatch"
+    ]
+  }
+}

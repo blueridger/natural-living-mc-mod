@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:bone"
+    },
+    "title": "Bone Carver",
+    "description": "Find a bone. (Forage from sand or harvest from large animals.)"
+  },
+  "parent": "naturalregeneration:as_stick",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:bone"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "naturalregeneration:bone_knife",
+      "naturalregeneration:bone_knife_stick_handle",
+      "naturalregeneration:stone_axe_with_bone_handle",
+      "naturalregeneration:stone_hoe_with_bone_handle",
+      "naturalregeneration:stone_pickaxe_with_bone_handle",
+      "naturalregeneration:stone_shovel_with_bone_handle",
+      "naturalregeneration:stone_sword_with_bone_handle",
+      "naturalregeneration:iron_axe_with_bone_handle",
+      "naturalregeneration:iron_hoe_with_bone_handle",
+      "naturalregeneration:iron_pickaxe_with_bone_handle",
+      "naturalregeneration:iron_shovel_with_bone_handle",
+      "naturalregeneration:iron_sword_with_bone_handle"
+    ]
+  }
+}

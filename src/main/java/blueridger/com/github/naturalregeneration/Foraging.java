@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import blueridger.com.github.naturalregeneration.Item.ModItems;
+import blueridger.com.github.naturalregeneration.block.ModBlocks;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
@@ -22,19 +24,20 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class Foraging {
-	public Foraging() {
-		dropsByTag.put(BlockTags.LEAVES, new Drops(25, true).add(Items.STICK, 1, 2).add(Items.FEATHER, 1, 2));
+	public static void setup() {
+		dropsByTag.put(BlockTags.LEAVES, new Drops(20, true).add(Items.STICK, 1, 1).add(Items.FEATHER, 1, 5).add(ModItems.WEAVING_MATERIAL.get(), 1, 5));
 
-		dropsByBlock.put(Blocks.GRAVEL, new Drops(50, false).add(Items.FLINT, 1, 1));
+		dropsByBlock.put(Blocks.GRAVEL, new Drops(30, false).add(Items.FLINT, 1, 1));
 		dropsByBlock.put(Blocks.TALL_GRASS,
-				new Drops(30, true).add(Items.STRING, 1, 3).add(Items.WHEAT_SEEDS, 1, 3).add(Items.WHEAT, 1, 3));
+				new Drops(15, true).add(Items.STRING, 1, 3).add(Items.WHEAT_SEEDS, 1, 3).add(Items.WHEAT, 1, 3).add(ModItems.WEAVING_MATERIAL.get(), 1, 3));
 		dropsByBlock.put(Blocks.GRASS,
-				new Drops(50, true).add(Items.BEETROOT_SEEDS, 1, 3).add(Items.BEETROOT, 1, 3).add(Items.POTATO, 1, 3));
-		dropsByBlock.put(Blocks.VINE, new Drops(30, true).add(Items.STRING, 1, 1).add(Items.VINE, 1, 2));
-		dropsByBlock.put(Blocks.DEAD_BUSH, new Drops(6, true).add(Items.STICK, 1, 1).add(Items.ACACIA_PLANKS, 1, 8));
+				new Drops(25, true).add(Items.BEETROOT, 1, 3).add(Items.POTATO, 1, 3));
+		dropsByBlock.put(Blocks.VINE, new Drops(20, true).add(Items.STRING, 1, 2).add(ModItems.WEAVING_MATERIAL.get(), 1, 2));
+		dropsByBlock.put(Blocks.DEAD_BUSH, new Drops(8, true).add(Items.STICK, 1, 1).add(Items.STRING, 1, 10).add(ModItems.WEAVING_MATERIAL.get(), 1, 10));
 		dropsByBlock.put(Blocks.SAND, new Drops(50, false).add(Items.BONE, 1, 1));
 		dropsByBlock.put(Blocks.CACTUS, new Drops(15, true).add(Items.APPLE, 1, 1));
-		dropsByBlock.put(Blocks.OAK_LEAVES, new Drops(35, true).add(Items.APPLE, 1, 1));
+		dropsByBlock.put(Blocks.OAK_LEAVES, new Drops(50, true).add(Items.APPLE, 1, 1));
+		dropsByBlock.put(ModBlocks.AGAVE_PLANT.get(), new Drops(15, true).add(Items.STRING, 1, 1));
 	}
 
 	private static final Logger LOGGER = LogUtils.getLogger();
@@ -53,11 +56,13 @@ public class Foraging {
 
 		int moonPhase = event.getPlayer().getLevel().getMoonPhase();
 		int positionHash = Math.abs(event.getPos().getX() + event.getPos().getY() + event.getPos().getZ());
+		boolean usingKnife = event.getPlayer().getMainHandItem().getItem() == ModItems.BONE_KNIFE.get();
+
 		for (Map.Entry<TagKey<Block>, Drops> entry : dropsByTag.entrySet()) {
 			if (event.getEntity().getLevel().getBlockState(event.getPos()).getTags()
 					.anyMatch(Predicate.isEqual(entry.getKey()))) {
 				LOGGER.debug("Found " + entry.getKey());
-				ArrayList<ItemStack> result = entry.getValue().rollDrops(positionHash, moonPhase);
+				ArrayList<ItemStack> result = entry.getValue().rollDrops(positionHash, moonPhase, usingKnife);
 				if (result == null)
 					continue;
 				for (ItemStack itemStack : result) {
@@ -68,7 +73,7 @@ public class Foraging {
 		Drops blockDrops = dropsByBlock.get(event.getEntity().getLevel().getBlockState(event.getPos()).getBlock());
 		if (blockDrops == null)
 			return;
-		ArrayList<ItemStack> result = blockDrops.rollDrops(positionHash, moonPhase);
+		ArrayList<ItemStack> result = blockDrops.rollDrops(positionHash, moonPhase, usingKnife);
 		if (result == null)
 			return;
 		for (ItemStack itemStack : result) {
@@ -77,7 +82,7 @@ public class Foraging {
 
 	}
 
-	protected class Drops {
+	protected static class Drops {
 		private class Drop {
 			protected Item item;
 			protected int count;
@@ -94,6 +99,9 @@ public class Foraging {
 		private final int hashMax;
 		private final boolean moonAffected;
 		private int hash;
+
+		/** lower means more success */
+		public static final double KNIFE_BONUS = 0.75;
 
 		protected Drops(int hashMax, boolean moonAffected) {
 			this.drops = new ArrayList();
@@ -128,9 +136,9 @@ public class Foraging {
 			}
 		}
 
-		protected ArrayList<ItemStack> rollDrops(int hashCheck, int moonPhase) {
+		protected ArrayList<ItemStack> rollDrops(int hashCheck, int moonPhase, boolean usingKnife) {
 			double moonModifier = moonPhaseToModifier(moonPhase);
-			int modifiedHashMax = (int) Math.ceil(moonModifier * this.hashMax);
+			int modifiedHashMax = (int) Math.ceil(moonModifier * this.hashMax * (usingKnife ? KNIFE_BONUS : 1));
 
 			LOGGER.debug("checking " + (hashCheck % this.hashMax) + " against hash " + hash + ", max " + this.hashMax
 					+ ". Modified to " + (hashCheck % modifiedHashMax) + " against " + (this.hash % modifiedHashMax)

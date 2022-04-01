@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:apple"
+    },
+    "title": "Fruit Feast",
+    "description": "Find an apple. (Forage from oak leaves or cacti.)"
+  },
+  "parent": "naturalregeneration:ancestral_skills",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:apple"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      ""
+    ]
+  }
+}

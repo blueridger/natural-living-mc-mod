@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "///",
+        "/ /"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:rabbit_hide"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "minecraft:brown_bed",
+        "count": 1
+    },
+    "group": "alt_bed"
+}

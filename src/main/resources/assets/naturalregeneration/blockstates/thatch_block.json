@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"": {
+			"model": "naturalregeneration:block/thatch_block"
+		}
+	}
+}

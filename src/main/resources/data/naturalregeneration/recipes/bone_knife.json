@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#",
+        "#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:bone"
+        }
+    },
+    "result": {
+        "item": "naturalregeneration:bone_knife",
+        "count": 1
+    },
+    "group": "bone_knife"
+}

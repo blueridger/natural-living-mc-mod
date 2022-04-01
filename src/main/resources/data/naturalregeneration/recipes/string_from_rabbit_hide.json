@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:rabbit_hide"
+        }
+    ],
+    "result": {
+        "item": "minecraft:string",
+        "count": 1
+    },
+    "group": "alt_string"
+}

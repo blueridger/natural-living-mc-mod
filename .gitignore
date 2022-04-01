@@ -4,3 +4,4 @@ bin
 run
 /.gradle
 /.classpath
+.idea

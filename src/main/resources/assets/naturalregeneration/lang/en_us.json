@@ -1,3 +1,12 @@
 {
-	"item.naturalregeneration.animal_fat": "Animal Fat"
+	"item.naturalregeneration.animal_fat": "Animal Fat",
+	"item.naturalregeneration.bone_knife": "Bone Knife",
+	"item.naturalregeneration.weaving_material": "Weaving Material",
+	
+	"block.naturalregeneration.thatch_block": "Thatch Block",
+	"block.naturalregeneration.agave_plant": "Agave Plant",
+	"block.naturalregeneration.potted_agave_plant": "Potted Agave Plant",
+	
+	
+	"entity.naturalregeneration.crab": "Crab"
 }

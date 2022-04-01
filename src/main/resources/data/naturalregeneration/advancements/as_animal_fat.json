@@ -1,0 +1,29 @@
+{
+	"display": {
+		"icon": {
+			"item": "naturalregeneration:animal_fat"
+		},
+		"title": "Lard Lover",
+		"description": "Harvest Animal Fat from pigs, cows, or bears."
+	},
+	"parent": "naturalregeneration:ancestral_skills",
+	"criteria": {
+		"crit1": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"naturalregeneration:weaving_material"
+						]
+					}
+				]
+			}
+		}
+	},
+	"rewards": {
+		"recipes": [
+			"naturalregeneration:torch_from_animal_fat"
+		]
+	}
+}
